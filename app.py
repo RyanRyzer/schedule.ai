@@ -127,9 +127,21 @@ if not st.session_state.login:
 
                 if success:
 
-                    st.success(
-                        "Register berhasil"
+                    user = login(
+                        reg_user,
+                        reg_pass
                     )
+
+                    st.session_state.login = True
+                    st.session_state.user_id = user[0]
+                    st.session_state.username = user[1]
+                    st.session_state.role = user[3]
+
+                    st.success(
+                        "Register berhasil. Selamat datang 🔥"
+                    )
+
+                    st.rerun()
 
                 else:
 
@@ -191,6 +203,35 @@ else:
                 st.session_state.selected_menu = "Notes"
 
         with st.expander(
+            "🌎 Community",
+            expanded=False
+        ):
+
+            if st.button(
+                "🌎 Community Hub",
+                use_container_width=True
+            ):
+                st.session_state.selected_menu = "Community Hub"
+
+            if st.button(
+                "🏆 Leaderboard",
+                use_container_width=True
+            ):
+                st.session_state.selected_menu = "Leaderboard"
+
+            if st.button(
+                "🏅 Achievement",
+                use_container_width=True
+            ):
+                st.session_state.selected_menu = "Achievement"
+
+            if st.button(
+                "🏫 Study Room",
+                use_container_width=True
+            ):
+                st.session_state.selected_menu = "Study Room"
+
+        with st.expander(
             "🤖 Smart Features",
             expanded=False
         ):
@@ -208,28 +249,10 @@ else:
                 st.session_state.selected_menu = "Statistik"
 
             if st.button(
-                "🏆 Leaderboard",
-                use_container_width=True
-            ):
-                st.session_state.selected_menu = "Leaderboard"
-
-            if st.button(
-                "🏅 Achievement",
-                use_container_width=True
-            ):
-                st.session_state.selected_menu = "Achievement"
-
-            if st.button(
                 "🎯 Focus Mode",
                 use_container_width=True
             ):
                 st.session_state.selected_menu = "Focus Mode"
-
-            if st.button(
-                "🏫 Study Room",
-                use_container_width=True
-            ):
-                st.session_state.selected_menu = "Study Room"
 
             if st.button(
                 "💬 AI Assistant",
@@ -305,17 +328,10 @@ else:
             encoding="utf-8"
         ).read())
 
-    elif selected == "Analisis":
+    elif selected == "Community Hub":
 
         exec(open(
-            "pages/analisis_produktivitas.py",
-            encoding="utf-8"
-        ).read())
-
-    elif selected == "Statistik":
-
-        exec(open(
-            "pages/statistik.py",
+            "pages/community_hub.py",
             encoding="utf-8"
         ).read())
 
@@ -333,17 +349,31 @@ else:
             encoding="utf-8"
         ).read())
 
-    elif selected == "Focus Mode":
-
-        exec(open(
-            "pages/focus_mode.py",
-            encoding="utf-8"
-        ).read())
-
     elif selected == "Study Room":
 
         exec(open(
             "pages/study_room.py",
+            encoding="utf-8"
+        ).read())
+
+    elif selected == "Analisis":
+
+        exec(open(
+            "pages/analisis_produktivitas.py",
+            encoding="utf-8"
+        ).read())
+
+    elif selected == "Statistik":
+
+        exec(open(
+            "pages/statistik.py",
+            encoding="utf-8"
+        ).read())
+
+    elif selected == "Focus Mode":
+
+        exec(open(
+            "pages/focus_mode.py",
             encoding="utf-8"
         ).read())
 
