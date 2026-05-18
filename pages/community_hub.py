@@ -144,9 +144,29 @@ with tab1:
 
                 st.subheader(title)
 
-                st.caption(
-                    f"👤 {username} • 🏷️ {category} • 🕒 {created_at}"
-                )
+                info1, info2, info3 = st.columns([
+                    2,
+                    2,
+                    2
+                ])
+
+                with info1:
+
+                    st.caption(
+                        f"👤 {username}"
+                    )
+
+                with info2:
+
+                    st.caption(
+                        f"🏷️ {category}"
+                    )
+
+                with info3:
+
+                    st.caption(
+                        f"🕒 {created_at}"
+                    )
 
                 st.write(content)
 
@@ -187,6 +207,10 @@ with tab1:
                             ))
 
                             conn.commit()
+
+                            st.success(
+                                "Komentar berhasil dikirim."
+                            )
 
                             st.rerun()
 
@@ -274,12 +298,27 @@ with tab1:
 
                     for c in comments:
 
-                        st.markdown(
-                            f"""
-                            🔵 **{c[0]}**
+                        with st.container():
 
-                            {c[1]}
+                            top1, top2 = st.columns([
+                                5,
+                                1
+                            ])
 
-                            🕒 {c[2]}
-                            """
-                        )
+                            with top1:
+
+                                st.markdown(
+                                    f"🔵 **{c[0]}**"
+                                )
+
+                            with top2:
+
+                                st.caption(
+                                    f"{c[2]}"
+                                )
+
+                            st.write(
+                                c[1]
+                            )
+
+                            st.divider()
