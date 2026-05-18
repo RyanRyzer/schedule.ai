@@ -3,8 +3,10 @@ import random
 
 st.title("💬 AI Chat Assistant")
 
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+chat_key = f"chat_history_{st.session_state.username}"
+
+if chat_key not in st.session_state:
+    st.session_state[chat_key] = []
 
 greetings = [
     "Halo juga 👋",
@@ -194,7 +196,7 @@ keyword_groups = {
     "tidur": daily_life
 }
 
-for role, message in st.session_state.chat_history:
+for role, message in st.session_state[chat_key]:
 
     if role == "user":
 
@@ -232,7 +234,7 @@ msg = st.chat_input(
 
 if msg:
 
-    st.session_state.chat_history.append(
+    st.session_state[chat_key].append(
         ("user", msg)
     )
 
@@ -244,7 +246,9 @@ if msg:
 
         if keyword in msg_lower:
 
-            matched_responses.extend(responses)
+            matched_responses.extend(
+                responses
+            )
 
     if len(matched_responses) > 0:
 
@@ -258,7 +262,7 @@ if msg:
             default_responses
         )
 
-    st.session_state.chat_history.append(
+    st.session_state[chat_key].append(
         ("assistant", response)
     )
 
